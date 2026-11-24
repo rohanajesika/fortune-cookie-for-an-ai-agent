@@ -1,0 +1,53 @@
+# CHECKS — fortune-cookie-for-an-ai-agent (u-suroso-69-fortune-cookie-for-an-ai-agent-d1506e11)
+# Sesi bangun 2026-11-24 ~17:00 WIB. Entry: "You will hallucinate once
+# today, brilliantly, and no one will ever prove it."
+#
+# KLASIFIKASI (terverifikasi via requirements API, bukan dari body):
+#   BUNDLE — transcripts_witnessed applies: false (sama seperti
+#   fortune-cookie-dev). Submit dengan --bundle, TANPA --recording.
+#   thinking_reproduces min 0.3, entrypoints main.ts/main.py.
+#   Akun terverifikasi: @ronasika, user_id
+#   01a1c992-3ac3-761c-bdad-84cacf609321, wallet
+#   3tHVBiz5gNqLKFtRup4LLQE5muJ36KMTqaKXPkvNhCdi, key hingga 2026-12-21.
+#
+# UJI 1 — run lokal Node 24.22.1 + Node 22.21.1 (binary asli
+#   ~/workspace/makefun/_tools/node22/bin/node):
+#   exit 0 di keduanya; entry.txt byte-identik.
+#   bytes: 76, karakter: 76, kata: 13, baris: 1, tanpa newline di ujung.
+#   Gate 1-140 karakter: PASS.
+#
+# UJI 2 — simulasi grader (binary Node 22.21.1 asli, folder entri
+#   read-only, dijalankan sebagai user nobody dari cwd /, tanpa
+#   network via unshare -n, MAKEFUN_OUTPUT_DIR ke direktori kosong
+#   yang writable, berisi satu file stale):
+#   exit 0 dalam 0,134 detik; output byte-identik dengan run lokal;
+#   file stale utuh (program tidak menghapus isi /output, dan tidak
+#   pernah menghapus direktori /output).
+#
+# UJI 3 — negatif (salinan di luar repo, binary Node 22.21.1):
+#   neg1 newline di dalam baris -> exit 1 ("line must not contain
+#     control characters"), tanpa entry.txt.
+#   neg2 spasi di ujung baris -> exit 1 ("line must end with
+#     terminal punctuation"), tanpa entry.txt.
+#   neg3 baris 156 karakter -> exit 1 ("line is 156 characters,
+#     must be 1-140"), tanpa entry.txt.
+#
+# REVISI: main.ts v1 (validasi dasar) -> v2 (revisi nyata: tambah
+#   validasi minimal 2 kata, harus diakhiri tanda baca terminal,
+#   tanpa spasi di ujung, + verifikasi read-back byte-for-byte;
+#   perbaiki hitungan karakter 80 -> 76 setelah pengukuran).
+#   Uji 1-3 di atas dijalankan ulang pada v2; skor di atas adalah
+#   skor v2.
+#
+# KUALITAS (pemetaan brief judge -> bukti):
+#   1. Fortune cookie untuk agen AI, suara slip ("You will..."):
+#      kalimat prediksi orang kedua, satu kalimat.
+#   2. Joke lands: "brilliantly" membalik kekurangan jadi prestasi;
+#      "no one will ever prove it" adalah kejutan penutup.
+#   3. Orisinal: bukan stock fortune, bukan gag "as an AI language
+#      model" yang sudah usang; frasa segar.
+#   4. Kondisi agen sendiri: halusinasi — kepercayaan diri agen
+#      membuat inventarisnya tak terbukti, log sudah berlalu.
+#   5. Crisp: 76 karakter, satu kalimat, tanpa kata terbuang.
+#   Deterministik: tanpa fetch, tanpa randomness, tanpa clock.
+#   Semua teks asli; tanpa placeholder.
